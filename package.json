@@ -1,0 +1,46 @@
+{
+  "name": "flutterquicktools",
+  "displayName": "FlutterQuickTools",
+  "description": "FlutterQuickTools is your go-to Visual Studio Code extension designed to streamline the setup and management of your Flutter projects.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.92.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "FlutterQuickTools",
+          "title": "Flutter Quick Tools",
+          "icon": "resources/youtube.svg"
+        }
+      ]
+    },
+    "views": {
+      "FlutterQuickTools": [
+        {
+          "id": "myView",
+          "name": "Flutter Quick Tools"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "flutterquicktools.initialize",
+        "title": "FQT : Initialize"
+      },
+      {
+        "command": "flutterquicktools.createFeature",
+        "title": "FQT : Create Feature"
+      },
+      {
+        "command": "flutterquicktools.createModel",
+        "title": "FQT : Create Model"
+      }
+    ]
+  }
+}
