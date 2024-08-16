@@ -9,6 +9,8 @@ const networkExceptionsScript = require('../script/lib/core/network_exception');
 const responseScript = require('../script/lib/core/response');
 const usecaseScript = require('../script/lib/core/usecase');
 const dataScript = require('../script/lib/data/data');
+const domainScript = require('../script/lib/domain/domain');
+
 
 
 function registerInitializeCommand(context) {
@@ -16,9 +18,11 @@ function registerInitializeCommand(context) {
         vscode.window.showInformationMessage('Apakah Anda yakin ingin menginisialisasi?', 'Yes', 'No')
             .then(selection => {
                 if (selection === 'Yes') {
-                    runTask('flutter pub add dio auto_route connectivity_plus collection dartz device_info_plus equatable')
+                    runTask('flutter pub add dio auto_route connectivity_plus collection dartz device_info_plus equatable flutter_bloc freezed_annotation get_it gap hydrated_bloc json_annotation')
                         .then(() => {
-                            return runTask('flutter pub get');
+                            return runTask('flutter pub add auto_route_generator build_runner freezed json_serializable -d').then(() => {
+                                return runTask('flutter pub get');
+                            });
                         })
                         .then(() => {
                             vscode.window.showInformationMessage('Packages fetched successfully!');
@@ -42,6 +46,7 @@ function registerInitializeCommand(context) {
 
                             createCoreFiles(libPath);
                             createDataFiles(libPath);
+                            createDomainFiles(libPath);
                             vscode.window.showInformationMessage('Inisialisasi selesai.');
                         })
                         .catch(err => {
@@ -78,12 +83,23 @@ function createCoreFiles(libPath) {
 
 function createDataFiles(libPath) {
     const dataPath = path.join(libPath, 'data');
-    fs.writeFileSync(path.join(dataPath, 'data.dart'), '');
+    fs.writeFileSync(path.join(dataPath, 'data.dart'), dataScript);
     const subFolders = ['api', 'repositories', 'themes', 'utils', 'widgets'];
     subFolders.forEach(folder => {
         const folderPath = path.join(dataPath, folder);
         fs.mkdirSync(folderPath);
         createFile(dataPath, folder, folder);
+    });
+}
+
+function createDomainFiles(libPath) {
+    const domainPath = path.join(libPath, 'domain');
+    fs.writeFileSync(path.join(domainPath, 'domain.dart'), domainScript);
+    const subFolders = ['entities', 'repositories', 'usecases'];
+    subFolders.forEach(folder => {
+        const folderPath = path.join(domainPath, folder);
+        fs.mkdirSync(folderPath);
+        fs.writeFileSync(path.join(folderPath, `${folder}.dart`), '');
     });
 }
 
@@ -109,8 +125,6 @@ function getScriptContent(fileName) {
             return responseScript;
         case 'usecase':
             return usecaseScript;
-        case 'data':
-            return dataScript;
         default:
             return `// Default script content for ${fileName}\n`;
     }
