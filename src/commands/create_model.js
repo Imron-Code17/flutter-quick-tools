@@ -22,13 +22,11 @@ function registerCreateModelCommand(context) {
             value: '',
             ignoreFocusOut: true
         });
-
         if (!jsonData) {
             vscode.window.showInformationMessage('Model creation canceled or no JSON provided.');
             return;
         }
 
-        // Step 3: Let the user select a folder within lib/domain/entities/
         const rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
         const entitiesFolderPath = path.join(rootPath, 'lib', 'domain', 'entities');
 

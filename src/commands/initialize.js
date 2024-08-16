@@ -38,13 +38,6 @@ const authCubitScript = require('../script/lib/presentations/auth/cubit/auth_cub
 const authStateScript = require('../script/lib/presentations/auth/cubit/auth_state');
 
 
-
-
-
-
-
-
-
 async function registerInitializeCommand(context) {
     let initCommand = vscode.commands.registerCommand('fluttermagictools.initialize', async function () {
         const selection = await vscode.window.showInformationMessage('Are you sure you want to initialize?', 'Yes', 'No');
