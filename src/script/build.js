@@ -1,0 +1,8 @@
+module.exports = `
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          explicit_to_json: true
+`;

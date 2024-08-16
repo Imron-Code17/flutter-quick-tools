@@ -1,7 +1,7 @@
 {
-  "name": "flutterquicktools",
-  "displayName": "FlutterQuickTools",
-  "description": "FlutterQuickTools is your go-to Visual Studio Code extension designed to streamline the setup and management of your Flutter projects.",
+  "name": "fluttermagictools",
+  "displayName": "FlutterMagicTools",
+  "description": "FlutterMagicTools is your go-to Visual Studio Code extension designed to streamline the setup and management of your Flutter projects.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.92.1"
@@ -13,16 +13,20 @@
   "contributes": {
     "commands": [
       {
-        "command": "flutterquicktools.initialize",
-        "title": "FQT: Initialize"
+        "command": "fluttermagictools.initialize",
+        "title": "Magic : Initialize"
       },
       {
-        "command": "flutterquicktools.createFeature",
-        "title": "FQT: Create Feature"
+        "command": "fluttermagictools.createFeature",
+        "title": "Magic : Create Feature"
       },
       {
-        "command": "flutterquicktools.createModel",
-        "title": "FQT: Create Model"
+        "command": "fluttermagictools.createModel",
+        "title": "Magic : Create Model"
+      },
+      {
+        "command": "fluttermagictools.createView",
+        "title": "Magic : Create View"
       }
     ]
   }

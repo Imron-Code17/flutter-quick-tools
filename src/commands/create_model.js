@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 function registerCreateModelCommand(context) {
-    const createModelCommand = vscode.commands.registerCommand('flutterquicktools.createModel', async () => {
+    const createModelCommand = vscode.commands.registerCommand('fluttermagictools.createModel', async () => {
         // Step 1: Prompt for the model name
         const modelName = await vscode.window.showInputBox({
             prompt: 'Enter the model name',

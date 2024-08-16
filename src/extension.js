@@ -9,7 +9,7 @@ const { registerCreateModelCommand } = require('./commands/create_model');
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-	console.log('FlutterQuickTools is now active!');
+	console.log('FlutterMagicTools is now active!');
 
 	// Daftarkan command di sini
 	registerInitializeCommand(context);

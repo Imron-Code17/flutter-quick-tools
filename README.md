@@ -1,6 +1,6 @@
-# flutterquicktools README
+# fluttermagictools README
 
-This is the README for your extension "flutterquicktools". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "fluttermagictools". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 

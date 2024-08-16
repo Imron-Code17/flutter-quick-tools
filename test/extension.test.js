@@ -1,10 +1,10 @@
 const vscode = require('vscode');
 
 function activate(context) {
-	console.log('Extension "flutterquicktools" is now active!');
+	console.log('Extension "fluttermagictools" is now active!');
 
 	// Register a command that is invoked when the icon is clicked
-	let disposable = vscode.commands.registerCommand('flutterquicktools.showDialog', function () {
+	let disposable = vscode.commands.registerCommand('fluttermagictools.showDialog', function () {
 		// Show a message box with a button
 		vscode.window.showInformationMessage(
 			'Do you want to proceed?',
