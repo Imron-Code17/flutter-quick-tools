@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabbed Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #181818;
+            font-size: 10px;
+            color: rgba(221, 221, 221, 0.5);
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left {
+            width: 65%;
+            background-color: #181818;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right {
+            flex: 1;
+            background-color: #202020;
+            padding: 20px;
+        }
+
+        .tab-container {
+            width: 100%;
+            position: relative;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 0.2px solid rgba(221, 221, 221, 0.3);
+            position: relative;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #181818;
+            border: none;
+            color: rgba(221, 221, 221, 0.5);
+        }
+
+        .tab.active {
+            font-weight: 600;
+            color: white;
+        }
+
+        .tab-content {
+            padding: 20px;
+            background-color: #181818;
+            margin-left: 5px;
+        }
+
+        .content {
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        .indicator {
+            height: 2px;
+            background-color: #10439F;
+            position: absolute;
+            bottom: 0;
+            transition: all 0.3s ease;
+            width: 0;
+            left: 0;
+        }
+
+        .tab-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 1px;
+            background-color: rgba(221, 221, 221, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="tab-container">
+                <div class="tabs">
+                    <div class="tab" id="tab-model">Model</div>
+                    <div class="tab" id="tab-view">View</div>
+                    <div class="tab" id="tab-endpoint">Endpoint</div>
+                    <div class="tab" id="tab-cubit">Cubit</div>
+                    <div class="tab" id="tab-request">Request</div>
+                    <div class="indicator"></div>
+                </div>
+                <div class="tab-content">
+                    <div class="content" id="content-model"></div>
+                    <div class="content" id="content-view"></div>
+                    <div class="content" id="content-endpoint"></div>
+                    <div class="content" id="content-cubit"></div>
+                    <div class="content" id="content-request"></div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <h2>Right Area</h2>
+            <p>Content for the right side.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.content');
+            const indicator = document.querySelector('.indicator');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    // Menghapus kelas aktif dari semua tab dan konten
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+
+                    // Menambahkan kelas aktif pada tab yang diklik dan kontennya
+                    const targetContentId = `content-${this.id.replace('tab-', '')}`;
+                    const targetContent = document.getElementById(targetContentId);
+
+                    this.classList.add('active');
+                    targetContent.classList.add('active');
+
+                    // Memperbarui posisi indikator
+                    const tabRect = this.getBoundingClientRect();
+                    const tabsRect = document.querySelector('.tabs').getBoundingClientRect();
+                    indicator.style.width = `${tabRect.width}px`;
+                    indicator.style.left = `${tabRect.left - tabsRect.left}px`;
+
+                    // Memuat konten dari string HTML
+                    loadContent(targetContentId, this.id.replace('tab-', ''));
+                });
+            });
+
+            // Pilih tab pertama sebagai default
+            if (tabs.length > 0) {
+                tabs[0].click();
+            }
+
+            function loadContent(contentId, tabName) {
+                const content = document.getElementById(contentId);
+
+                if (!content) return;
+
+                const htmlMap = {
+                    'model': 'model_view.html',
+                    'view': 'view_page_view.html',
+                    'endpoint': 'endpoint_view.html]',
+                    'cubit': 'cubit_view.html',
+                    'request': 'request_view.html'
+                };
+                const htmlPath = htmlMap[tabName];
+                const html = fs.readFileSync(htmlPath, 'utf8');
+
+
+                if (html) {
+                    content.innerHTML = html;
+                    vscode.postMessage({ command: 'fileSelected', file: `${tabName}_view.html` });
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

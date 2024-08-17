@@ -11,13 +11,26 @@
   ],
   "main": "./src/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "fluttermagictoolsactivitybar",
+          "title": "Flutter Magic Tools",
+          "icon": "resources/youtube.svg"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "fluttermagictools.initialize",
         "title": "Magic : Initialize"
       },
       {
-        "command": "fluttermagictools.createFeature",
+        "command": "fluttermagictools.menu",
+        "title": "Magic : Menu"
+      },
+      {
+        "command": "fluttermagictools.createRequest",
         "title": "Magic : Create Feature"
       },
       {
@@ -31,7 +44,14 @@
       {
         "command": "fluttermagictools.createCubit",
         "title": "Magic : Create Cubit"
+      },
+      {
+        "command": "fluttermagictools.createEndpoint",
+        "title": "Magic : Create Endpoint"
       }
     ]
+  },
+  "devDependencies": {
+    "html-loader": "^5.1.0"
   }
 }

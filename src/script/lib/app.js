@@ -2,10 +2,7 @@ module.exports = `
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easy_dialogs/flutter_easy_dialogs.dart';
-
-import 'data/themes/themes.dart';
-import 'di/di.dart';
-import 'router/router.dart';
+import 'lib.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -14,7 +11,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-
+        BlocProvider<AuthCubit>(
+          create: (context) => di(),
+        ),
       ],
       child: MaterialApp.router(
         title: 'Flutter Magic',
@@ -25,4 +24,5 @@ class App extends StatelessWidget {
     );
   }
 }
+
 `;

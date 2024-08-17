@@ -22,6 +22,7 @@ const utilsScript = require('../script/lib/data/utils/utils');
 const appBottomsheetScript = require('../script/lib/data/utils/app_bottomsheet');
 const appDialogScript = require('../script/lib/data/utils/app_dialog');
 const dioTokenInterceptorScript = require('../script/lib/data/utils/dio_token_interceptor');
+const endpointScript = require('../script/lib/data/utils/endpoint');
 const parseIntToBoolScript = require('../script/lib/data/utils/parse_int_to_bool');
 const extensionsScript = require('../script/lib/data/utils/extensions/extensions');
 const doubleExtensionScript = require('../script/lib/data/utils/extensions/double_extension');
@@ -147,8 +148,8 @@ function createDiFiles(libPath) {
 function createUtilsFiles(libPath) {
     const utilsPath = path.join(libPath, 'utils');
     fs.writeFileSync(path.join(utilsPath, 'utils.dart'), utilsScript);
-    const files = ['app_bottomsheet.dart', 'app_dialog.dart', 'dio_token_interceptor.dart', 'parse_int_to_bool.dart'];
-    const scriptLibs = [appBottomsheetScript, appDialogScript, dioTokenInterceptorScript, parseIntToBoolScript];
+    const files = ['app_bottomsheet.dart', 'app_dialog.dart', 'dio_token_interceptor.dart', 'endpoint.dart', 'parse_int_to_bool.dart'];
+    const scriptLibs = [appBottomsheetScript, appDialogScript, dioTokenInterceptorScript, endpointScript, parseIntToBoolScript];
     files.forEach((file, index) => {
         createSubFiles(utilsPath, file, scriptLibs[index]);
     });

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #181818;
+            font-size: 10px;
+            color: rgba(221, 221, 221, 0.7);
+        }
+
+        h4 {
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #ffffff;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: 400;
+            font-family: sans-serif;
+            color: #ffffff;
+            background-color: #181818;
+            border: .3px solid rgba(221, 221, 221, 0.5);
+            outline: none;
+            transition: border-color 0.3s;
+            border-radius: 3px;
+        }
+
+        textarea {
+            width: 65%;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: 400;
+            font-family: sans-serif;
+            color: #ffffff;
+            background-color: #202020;
+            border: .3px solid rgba(221, 221, 221, 0.5);
+            outline: none;
+            transition: border-color 0.3s;
+            border-radius: 3px;
+            resize: none;
+        }
+
+        textarea::placeholder {
+            color: rgba(221, 221, 221, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h4>Model Name</h4>
+        <input type="text" name="myInput" placeholder="Enter model name" size="14" required>
+        <br><br />
+        <h4>Json</h4>
+        <textarea name="myTextarea" placeholder="Your message here" cols="60" rows="10" minlength="50" maxlength="5000"
+            required></textarea>
+        <br><br />
+        <button onclick="prettifyJson()">Format JSON</button>
+    </div>
+
+    <script>
+        function prettifyJson() {
+            const textarea = document.querySelector('textarea[name="myTextarea"]');
+            try {
+                const json = JSON.parse(textarea.value);
+                const prettyJson = JSON.stringify(json, null, 4);
+                textarea.value = prettyJson;
+            } catch (error) {
+                alert('Invalid JSON. Please check your input.');
+            }
+        }
+    </script>
+</body>
+
+</html>

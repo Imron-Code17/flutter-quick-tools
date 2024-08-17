@@ -107,9 +107,7 @@ function getDirectories(srcPath) {
     return fs.readdirSync(srcPath).filter(file => fs.statSync(path.join(srcPath, file)).isDirectory());
 }
 
-function toSnakeCase(str) {
-    return str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`).replace(/^_/, '');
-}
+
 
 function generateModelTemplate(modelName, jsonData) {
     const parsedJson = JSON.parse(jsonData);
@@ -166,12 +164,12 @@ function generateSingleModel(json, modelName) {
 
     const template = `
 @freezed
-class ${modelName} with _\$${modelName} {
-    const factory ${modelName}({
+class ${formatSingleText(modelName)} with _\$${formatSingleText(modelName)} {
+    const factory ${formatSingleText(modelName)}({
 ${fields.trimEnd()}
-    }) = _${modelName};
+    }) = _${formatSingleText(modelName)};
 
-    factory ${modelName}.fromJson(Map<String, dynamic> json) => _\$${modelName}FromJson(json);
+    factory ${formatSingleText(modelName)}.fromJson(Map<String, dynamic> json) => _\$${formatSingleText(modelName)}FromJson(json);
 }
 `;
 
@@ -205,8 +203,18 @@ function singularize(str) {
     return str.replace(/s$/, '');
 }
 
-function toSnakeCase(str) {
-    return str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`).replace(/^_/, '');
+function toSnakeCase(input) {
+    return input
+        .replace(/([a-z])([A-Z])/g, '$1_$2')
+        .replace(/\s+/g, '_')
+        .toLowerCase();
+}
+
+function formatSingleText(input) {
+    if (input.includes(' ') || input.includes('_')) {
+        return input.split(/[\s_]/).map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join('');
+    }
+    return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
 }
 
 
